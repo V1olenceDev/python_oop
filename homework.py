@@ -14,10 +14,10 @@ class InfoMessage:
         self.training_type = training_type
 
     def get_message(self):
-        return f'Тип тренировки: {self.training_type}; '\
-               f'Длительность: {self.duration:.3f} ч.; '\
-               f'Дистанция: {self.distance:.3f} км; '\
-               f'Ср. скорость: {self.speed:.3f} км/ч; '\
+        return f'Тип тренировки: {self.training_type}; ' \
+               f'Длительность: {self.duration:.3f} ч.; ' \
+               f'Дистанция: {self.distance:.3f} км; ' \
+               f'Ср. скорость: {self.speed:.3f} км/ч; ' \
                f'Потрачено ккал: {self.calories:.3f}.'
 
 
@@ -25,7 +25,8 @@ class Training:
     """Базовый класс тренировки."""
     LEN_STEP = 0.65  # длина шага в метрах
     M_IN_KM = 1000  # количество метров в километре
-    MIN_IN_H = 60 # кол-во минут в часе
+    MIN_IN_H = 60  # кол-во минут в часе
+
     def __init__(self,
                  action: int,
                  duration: float,
@@ -82,7 +83,8 @@ class SportsWalking(Training):
     K_1 = 0.035  # Коэффициент для подсчета калорий.
     K_2 = 0.029  # Коэффициент для подсчета калорий.
     K_3 = 0.278  # Константа для перевода в м/с
-    S_IN_M = 100 # См в метре
+    S_IN_M = 100  # См в метре
+
     def __init__(self,
                  action: int,
                  duration: float,
@@ -97,7 +99,7 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         return ((self.K_1 * self.weight +
-                 ((super().get_mean_speed() * self.K_3)**2 /
+                 ((super().get_mean_speed() * self.K_3) ** 2 /
                   (self.height / self.S_IN_M)) * self.K_2 * self.weight)
                 * (self.duration * Training.MIN_IN_H))
 
@@ -107,6 +109,7 @@ class Swimming(Training):
     LEN_STEP = 1.38
     CALORIES_MEAN_SPEED_SHIFT = 1.1
     K_SWIM = 2
+
     def __init__(self,
                  action: int,
                  duration: float,
