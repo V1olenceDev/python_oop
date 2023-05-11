@@ -159,6 +159,7 @@ def main(training: Training) -> None:
     message = info.get_message()
     print(message)
 
+
 if __name__ == '__main__':
     packages = [
         ('SWM', [720, 1, 80, 25, 40]),
