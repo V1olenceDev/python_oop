@@ -91,15 +91,12 @@ class SportsWalking(Training):
                  weight: float,
                  height: float):
         super().__init__(action, duration, weight)
-        self.action = action
-        self.duration = duration
-        self.weight = weight
         self.height = height
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         return ((self.RUNNING_CALORIE_RATIO_SPEED * self.weight
-                 + ((super().get_mean_speed() * self.CONVERT_TO_MS) ** 2
+                 + ((self.get_mean_speed() * self.CONVERT_TO_MS) ** 2
                     / (self.height / self.CENTIMETERS_IN_METER))
                  * self.RUNNING_CALORIE_RATIO_WEIGHT * self.weight)
                 * (self.duration * self.MINUTES_IN_HOUR))
@@ -109,7 +106,7 @@ class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP: float = 1.38
     CALORIES_MEAN_SPEED_SHIFT: float = 1.1
-    K_SWIM: int = 2
+    SWIMMING_COEFFICIENT: int = 2
 
     def __init__(self,
                  action: int,
@@ -136,7 +133,7 @@ class Swimming(Training):
         """Получить количество затраченных калорий."""
         return ((self.get_mean_speed()
                  + self.CALORIES_MEAN_SPEED_SHIFT)
-                * self.K_SWIM * self.weight * self.duration)
+                * self.SWIMMING_COEFFICIENT * self.weight * self.duration)
 
 
 TRAINING_CLASSES: dict[str, type[Training]] = {
@@ -150,7 +147,6 @@ def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     if workout_type not in TRAINING_CLASSES:
         raise ValueError(f"Неизвестный тип тренировки: {workout_type}")
-
     return TRAINING_CLASSES[workout_type](*data)
 
 
