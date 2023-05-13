@@ -115,9 +115,6 @@ class Swimming(Training):
                  length_pool: float,
                  count_pool: int):
         super().__init__(action, duration, weight)
-        self.action = action
-        self.duration = duration
-        self.weight = weight
         self.length_pool = length_pool
         self.count_pool = count_pool
 
